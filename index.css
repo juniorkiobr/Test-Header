@@ -109,6 +109,19 @@ header .navegacao li:hover {
     padding: 14.63px 11px;
     float: right;
   }
+  header .hide-nav.show-nav .line-menu:first-of-type {
+    transition: 200ms ease-in-out;
+    transform: rotate(45deg) translate(7px, 2px);
+  }
+
+  header .hide-nav.show-nav .line-menu:nth-last-of-type(2) {
+    visibility: hidden;
+  }
+
+  header .hide-nav.show-nav .line-menu:last-of-type {
+    transition: 200ms ease-in-out;
+    transform: rotate(-45deg) translate(10px, -5px);
+  }
   header .navegacao li {
     display: inline-block;
 
