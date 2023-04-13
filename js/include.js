@@ -2,10 +2,14 @@ const getIncludes = async () => {
     const selects = document.querySelectorAll("[data-include]");
     selects.forEach(async (select) => {
         const path = select.getAttribute("data-include");
+        // select.remove();
+        let callback = () => {
+            select.replaceWith(...new DOMParser().parseFromString(html, "text/html").body.childNodes);
+
+        }
+
         var response = await fetch(path);
         var html = await response.text();
-        select.remove();
-
         let next = false;
         if (html.indexOf("<script src=") > -1) {
             next = true;
@@ -27,7 +31,8 @@ const getIncludes = async () => {
                 console.log("Script " + src + " carregado");
             });
         }
-        document.body.innerHTML += html;
+
+        callback();
     });
 };
 
