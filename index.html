@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tests Header</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <header>
+      <div class="apresentacao">
+        <h1>Marcelo Gonzaga</h1>
+        <h2>Desenvolvedor Web</h2>
+      </div>
+      <div class="hide-nav">
+        <hr class="line-menu" />
+        <hr class="line-menu" />
+        <hr class="line-menu" />
+      </div>
+      <ul class="navegacao">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </header>
+  </body>
+</html>
+
+<script>
+  const hideNav = document.querySelector(".hide-nav");
+  const navegacao = document.querySelector(".navegacao");
+
+  hideNav.addEventListener("click", () => {
+    navegacao.classList.toggle("show-nav");
+  });
+</script>
