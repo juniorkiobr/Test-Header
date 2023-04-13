@@ -5,66 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tests Header</title>
-    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="css/reset.css" />
     <!-- <link rel="stylesheet" href="fontawesome-free-6.4.0-web/webfonts/" /> -->
     <link rel="stylesheet" href="fa_icons/js/all.js" />
     <link rel="stylesheet" href="fa_icons/css/all.css" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
-    <header>
-      <div class="apresentacao">
-        <h1>Marcelo Gonzaga</h1>
-        <h2>Desenvolvedor Web</h2>
-      </div>
-      <div class="hide-nav">
-        <hr class="line-menu" />
-        <hr class="line-menu" />
-        <hr class="line-menu" />
-      </div>
-      <ul class="navegacao">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </header>
-
-    <footer>
-      <div class="footer-contact">
-        <h3>Contato</h3>
-
-        <p>
-          <i class="fa-solid fa-phone"></i>
-          (34) 99799-3262
-        </p>
-        <p>
-          <i class="fa-regular fa-envelope"></i>
-          marcelo.gonzagadecarvalho@hotmail.com
-        </p>
-        <p>
-          <i class="fa-brands fa-github"></i>
-          <a href="https://github.com/juniorkiobr"> Marcelo Junior</a>
-        </p>
-        <p>
-          <i class="fa-brands fa-linkedin"></i>
-          <a
-            href="https://www.linkedin.com/in/marcelo-gonzaga-de-carvalho-j%C3%BAnior-729060185"
-          >
-            Marcelo Junior</a
-          >
-        </p>
-      </div>
-      <p class="copyright">©Marcelo Gonzaga</p>
-    </footer>
+    <div data-include="views/header.html"></div>
+    <div data-include="views/footer.html"></div>
   </body>
+  <script>
+    const getIncludes = async () => {
+      const selects = document.querySelectorAll("[data-include]");
+      console.log("Entrou no ForEach");
+      selects.forEach(async (select) => {
+        const path = select.getAttribute("data-include");
+        var response = await fetch(path);
+        var html = await response.text();
+        console.log("Saida do ForEach");
+
+        console.log(html);
+        select.remove();
+        let next = false;
+        if (html.indexOf("<script src=") > -1) {
+          next = true;
+        }
+        console.log("Next: " + next);
+        while (next) {
+          console.log("Entrou no While");
+          var src = html.substring(
+            html.indexOf("<script src=" + '"') + 13,
+            html.indexOf('"' + "><\/script>")
+          );
+          let tmp = "<script src=" + '"' + src + '"' + "><\/script>";
+          html = html.replace(tmp, "");
+
+          if (html.indexOf("<script src=") > -1) {
+            next = true;
+          } else {
+            next = false;
+          }
+          console.log("Script src: " + src);
+          generateScriptPromise(src).then(() => {
+            console.log("Script " + src + " carregado");
+          });
+        }
+        document.body.innerHTML += html;
+      });
+      console.log("Saida do ForEach");
+    };
+    document.addEventListener("DOMContentLoaded", async () => {
+      await getIncludes();
+      console.log("Includes carregados");
+    });
+
+    function generateScriptPromise(src) {
+      const scriptPromise = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = () => {
+          resolve();
+        };
+        script.onerror = () => {
+          reject();
+        };
+        document.body.appendChild(script);
+      });
+      return scriptPromise;
+    }
+  </script>
 </html>
-
-<script>
-  const hideNav = document.querySelector(".hide-nav");
-  const navegacao = document.querySelector(".navegacao");
-
-  hideNav.addEventListener("click", () => {
-    navegacao.classList.toggle("show-nav");
-    hideNav.classList.toggle("show-nav");
-  });
-</script>

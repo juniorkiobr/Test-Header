@@ -2,7 +2,7 @@ header {
   display: inline-block;
   width: 100%;
   /* background-color: #1a1919; */
-  background-image: url("./background.png");
+  background-image: url("../img/background.png");
   color: #fff;
   padding: 15px 0;
   /* text-align: center; */
@@ -140,41 +140,4 @@ header .navegacao li:hover {
     background-color: #6761d7;
     height: 100%;
   }
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #000;
-  color: #fff;
-  padding: 20px;
-}
-
-footer .footer-contact {
-  display: grid;
-  line-height: 1em;
-  margin: 10px 0;
-}
-
-footer .footer-contact > p {
-  color: #fff;
-  font-size: 1rem;
-  margin: 3px 0;
-}
-footer .footer-contact > p a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 1rem;
-  margin: 3px 0;
-}
-
-footer .footer-contact > p a:hover {
-  color: #fff;
-  text-decoration: underline;
-}
-
-footer .copyright {
-  font-size: 1.2rem;
-  text-align: center;
 }
