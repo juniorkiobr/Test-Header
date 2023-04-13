@@ -1,7 +1,8 @@
 header {
   display: inline-block;
   width: 100%;
-  background-color: #1a1919;
+  /* background-color: #1a1919; */
+  background-image: url("./background.png");
   color: #fff;
   padding: 15px 0;
   /* text-align: center; */
