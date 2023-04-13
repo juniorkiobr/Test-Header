@@ -12,6 +12,23 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
+    <header>
+      <div class="apresentacao">
+        <h1>Marcelo Gonzaga</h1>
+        <h2>Desenvolvedor Web</h2>
+      </div>
+      <div class="hide-nav">
+        <hr class="line-menu" />
+        <hr class="line-menu" />
+        <hr class="line-menu" />
+      </div>
+      <ul class="navegacao">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </header>
+
     <footer>
       <div class="footer-contact">
         <h3>Contato</h3>
@@ -42,4 +59,12 @@
   </body>
 </html>
 
-<script></script>
+<script>
+  const hideNav = document.querySelector(".hide-nav");
+  const navegacao = document.querySelector(".navegacao");
+
+  hideNav.addEventListener("click", () => {
+    navegacao.classList.toggle("show-nav");
+    hideNav.classList.toggle("show-nav");
+  });
+</script>
