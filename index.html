@@ -12,69 +12,16 @@
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/index.css" />
+    <script src="js/include.js"></script>
   </head>
   <body>
     <div data-include="views/header.html"></div>
     <div data-include="views/footer.html"></div>
   </body>
   <script>
-    const getIncludes = async () => {
-      const selects = document.querySelectorAll("[data-include]");
-      console.log("Entrou no ForEach");
-      selects.forEach(async (select) => {
-        const path = select.getAttribute("data-include");
-        var response = await fetch(path);
-        var html = await response.text();
-        console.log("Saida do ForEach");
-
-        console.log(html);
-        select.remove();
-        let next = false;
-        if (html.indexOf("<script src=") > -1) {
-          next = true;
-        }
-        console.log("Next: " + next);
-        while (next) {
-          console.log("Entrou no While");
-          var src = html.substring(
-            html.indexOf("<script src=" + '"') + 13,
-            html.indexOf('"' + "><\/script>")
-          );
-          let tmp = "<script src=" + '"' + src + '"' + "><\/script>";
-          html = html.replace(tmp, "");
-
-          if (html.indexOf("<script src=") > -1) {
-            next = true;
-          } else {
-            next = false;
-          }
-          console.log("Script src: " + src);
-          generateScriptPromise(src).then(() => {
-            console.log("Script " + src + " carregado");
-          });
-        }
-        document.body.innerHTML += html;
-      });
-      console.log("Saida do ForEach");
-    };
     document.addEventListener("DOMContentLoaded", async () => {
       await getIncludes();
       console.log("Includes carregados");
     });
-
-    function generateScriptPromise(src) {
-      const scriptPromise = new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src = src;
-        script.onload = () => {
-          resolve();
-        };
-        script.onerror = () => {
-          reject();
-        };
-        document.body.appendChild(script);
-      });
-      return scriptPromise;
-    }
   </script>
 </html>
