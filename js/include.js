@@ -41,12 +41,12 @@ function generateScriptPromise(src) {
         const script = document.createElement("script");
         script.src = src;
         script.onload = () => {
+            document.body.appendChild(script);
             resolve();
         };
         script.onerror = () => {
             reject();
         };
-        document.body.appendChild(script);
     });
     return scriptPromise;
 }
